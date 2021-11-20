@@ -3,17 +3,15 @@
   "description": "Redirects new tab to a basic web page which the user can customize.",
   "version": "1.0.0",
   "author": "Raluvy95",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "chrome_url_overrides": {
-    "newtab": "tab/tab.html"
+    "newtab": "src/tab.html"
   },
   "icons": {
-    "128": "./tab/favicon.png"
+    "128": "./src/favicon.png"
   },
   "permissions": [
     "webRequest",
-    "webRequestBlocking",
-    "*://*/*",
     "geolocation"
   ]
 }
