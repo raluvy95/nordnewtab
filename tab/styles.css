@@ -1,0 +1,81 @@
+@import url(palettes.css);
+@import url(weather-icons.css);
+
+body {
+  margin: 0%;
+  color: var(--fg);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: var(--bg);
+  z-index: 2;
+}
+
+.main {
+  padding: 15vw;
+  text-align: center;
+}
+
+@font-face {
+  font-family: 'UniSans';
+  src: url(./font/Uni\ Sans\ Heavy\ Regular.ttf);
+}
+
+.title {
+  font-family: UniSans;
+  font-size: 64px;
+  margin-block-start: 0;
+  margin-block-end: 10px;
+  cursor: default;
+  color: var(--color1);
+  transition: 0.3s color;
+  text-shadow: 0px 2px 5px black;
+}
+.title:hover {
+  color: var(--color2);
+}
+.search {
+  background-color: var(--bg2);
+  border-radius: 5px;
+  border: none;
+  width: 45vw;
+  height: 5vh;
+  color: var(--fg);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  height: 44px;
+  outline: none;
+  position: relative;
+  padding-left: 10px;
+  transition: 0.2s;
+  margin-bottom: 10px;
+}
+
+.search:hover {
+  background-color: var(--bg3);
+  box-shadow: 0px 1px 2px black;
+}
+
+.search:focus {
+  background-color: var(--bg1);
+  width: 48vw;
+  box-shadow: 0px 1px 2px black;
+}
+
+.a_like:hover {
+  color: var(--color2);
+  cursor: pointer;
+}
+
+.widgets {
+  position:absolute;
+  display: inline;
+  cursor: default;
+  font-size: 20px;
+  display: inline;
+  font-family: 'Segoe UI';
+  color: var(--color3);
+  margin: 25px;
+}
+
+.widgets:hover {
+  color: var(--color1);
+}

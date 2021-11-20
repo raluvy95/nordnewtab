@@ -1,0 +1,23 @@
+:root {
+
+    /* Nord theme palettes */
+    --bg: #2E3440;
+    --bg1: #3B4252;
+    --bg2: #434C5E;
+    --bg3: #4C566A;
+
+    --fg: #D8DEE9;
+    --fg1: #E5E9F0;
+    --fg2: #ECEFF4;
+
+    --color: #8FBCBB;
+    --color1: #88C0D0;
+    --color2: #81A1C1;
+    --color3: #5E81AC;
+
+    --red: #BF616A;
+    --orange: #D08770;
+    --yellow: #EBCB8B;
+    --green: #A3BE8C;
+    --purple: #B48EAD;
+}
