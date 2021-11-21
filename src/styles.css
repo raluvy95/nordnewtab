@@ -11,7 +11,7 @@ body {
 }
 
 .main {
-  padding: 15vw;
+  padding: 13vw;
   text-align: center;
 }
 
@@ -33,6 +33,27 @@ body {
 .title:hover {
   color: var(--color2);
 }
+
+ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  padding: 0;
+}
+
+li {
+  padding: 2vh;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color1);
+}
+
+a:hover {
+  color: var(--color2);
+}
+
 .search {
   background-color: var(--bg2);
   border-radius: 5px;

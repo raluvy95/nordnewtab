@@ -17,44 +17,43 @@ document.getElementById("press1").addEventListener("click", () => {
 
 function HTTPWeather() {
     navigator.geolocation.getCurrentPosition(s => {
-        const getLatLon = {lat: s.coords.latitude.toFixed(2), lon: s.coords.longitude.toFixed(2), at: s.coords.altitude || 90};
+        const getLatLon = { lat: s.coords.latitude.toFixed(2), lon: s.coords.longitude.toFixed(2), at: s.coords.altitude || 90 };
         fetch(`https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${getLatLon.lat}&lon=${getLatLon.lon}&altitude=${getLatLon.at}`)
-        .then(r => r.json())
-        .then(res => {
-            function icon(time, weather) {
-                let result = "wi wi-"
-                const data = new Date(time)
-                const hour = data.getHours()
-                const otherIcons = {
-                    // unsupported icons
-                    "lightsleet": "snow",
-                    "lightrain": "rain"
+            .then(r => r.json())
+            .then(res => {
+                function icon(weather) {
+                    let result = "wi wi-"
+                    const otherIcons = {
+                        // unsupported icons
+                        "lightsleet": "snow",
+                        "lightrain": "rain",
+                        "fair": "sunny"
+                    }
+                    const splied = weather.split("_")
+                    result += splied[1] + "-"
+                    if (otherIcons[splied[0]] == undefined) {
+                        result += splied[0]
+                    } else {
+                        result += otherIcons[splied[0]]
+                    }
+                    const wicon = document.getElementById("weather-icon")
+                    wicon.setAttribute("class", result)
+                    wicon.setAttribute("title", C(splied[0]))
                 }
-                if (hour >= 8 && hour <= 18) {
-                    result += "day-"
-                } else {
-                    result += "night-"
-                }
-                if (otherIcons[weather] == undefined) {
-                    result += weather
-                } else {
-                    console.log(`Looks like ${weather} doesn't have icons...`)
-                    result += otherIcons[weather]
-                }
-                const wicon = document.getElementById("weather-icon")
-                wicon.setAttribute("class", result)
-                wicon.setAttribute("title", C(weather))
-            }
-            const details = res.properties.timeseries[0].data.instant.details
-            const time = res.properties.timeseries[0].time
-            const wicon = res.properties.timeseries[0].data["next_1_hours"].summary['symbol_code']
-            const celsus = details['air_temperature']
-            icon(time, wicon)
-            const w = document.getElementById("weather")
-            w.innerHTML = `${Math.round(celsus).toString()}&deg;C`
-        })
-        .catch(console.error)
+                const details = res.properties.timeseries[0].data.instant.details
+                const time = res.properties.timeseries[0].time
+                const wicon = res.properties.timeseries[0].data["next_1_hours"].summary['symbol_code']
+                const celsus = details['air_temperature']
+                icon(wicon)
+                const w = document.getElementById("weather")
+                w.innerHTML = `${Math.round(celsus).toString()}&deg;C`
+            })
+            .catch(err => {
+                console.error(err)
+                document.getElementById("weather").innerHTML = "Unknown"
+            })
     }, err => {
+        console.error(err)
         document.getElementById("weather").innerHTML = "Unknown"
     })
 }
@@ -68,27 +67,69 @@ function randomQuote() {
         const picked = j[pick]
         document.getElementById("random").innerHTML = picked.h
     }
-    if(!storage.getItem("quotes")) {
+    if (!storage.getItem("quotes")) {
         fetch("https://zenquotes.io/api/quotes").then(r => r.json())
-        .then(res => {
-            storage.setItem("quotes", JSON.stringify(res))
-            changeQuote()
-        })
-        .catch(console.error)
+            .then(res => {
+                storage.setItem("quotes", JSON.stringify(res))
+                changeQuote()
+            })
+            .catch(console.error)
     } else changeQuote()
 }
 
 function time() {
     function zero(num) {
-        if(num.toString().length == 1) {
+        if (num.toString().length == 1) {
             return "0" + num
         } else return num
     }
     const date = new Date()
     const clock = document.getElementById("clock")
-    clock.innerHTML = `${zero(date.getHours())}:${zero(date.getMinutes())}`
+    clock.innerHTML = `${zero(date.getHours())}:${zero(date.getMinutes())}:${zero(date.getSeconds())}`
     clock.setAttribute("title", date.toDateString())
 }
+function quickstartload() {
+    const localStorage = window.localStorage
+    if (!localStorage.quickstart) {
+        const quickstartBasic = [
+            {
+                "title": "YouTube",
+                "url": "https://youtube.com"
+            },
+            {
+                "title": "Reddit",
+                "url": "https://reddit.com"
+            },
+            {
+                "title": "Facebook",
+                "url": "https://facebook.com"
+            },
+            {
+                "title": "Instagram",
+                "url": "https://instagram.com"
+            },
+            {
+                "title": "GitHub",
+                "url": "https://github.com"
+            }
+        ]
+        localStorage.setItem("quickstart", JSON.stringify(quickstartBasic))
+    }
+    const quickstart = JSON.parse(localStorage.quickstart)
+    if (!quickstart) {
+        console.error("there's something went wrong here")
+    }
+    for (const obj of quickstart) {
+        document.getElementById("quickstart").innerHTML += `
+            <li>
+                <p><a href=${obj.url}>${obj.title}</a></p>
+                <img src="https://s2.googleusercontent.com/s2/favicons?domain=${obj.url}></img>
+            </li>
+        `
+    }
+}
+
+quickstartload()
 time()
 HTTPWeather()
 randomQuote()
