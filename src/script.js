@@ -29,10 +29,15 @@ function HTTPWeather() {
                         "lightrain": "rain",
                         "fair": "sunny"
                     }
+                    const otherIconsNight = {
+                        "fair": "clear"
+                    }
                     const splied = weather.split("_")
                     result += splied[1] + "-"
-                    if (otherIcons[splied[0]] == undefined) {
+                    if (!otherIcons[splied[0]] ||  !otherIconsNight[splied[0]]) {
                         result += splied[0]
+                    } else if (splied[1] == "night") {
+                        result += otherIconsNight[splied[0]]
                     } else {
                         result += otherIcons[splied[0]]
                     }
