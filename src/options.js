@@ -18,6 +18,7 @@ function newQuickstart() {
     quickstartList()
 }
 function removeQuickstart(e) {
+    console.log("IT WORKS")
     saveQuickstart()
     const ID = e.target.id.slice(16)
     const json = JSON.parse(window.localStorage.quickstart)
@@ -45,10 +46,14 @@ function quickstartList() {
             count++
         }
         general += "</ul>"
-        const removeButtons = !document.querySelectorAll("[id^='quickstartRemove']") ? [] : Array.from(document.querySelectorAll('[id^="quickstartRemove"]'))
-        for(const button of removeButtons) {
-            button.addEventListener("click", removeQuickstart)
-        }
+        setTimeout(() => { 
+            // I added 1s delay due to not loading stuff before this.
+            const removeButtons = !document.querySelectorAll("[id^='quickstartRemove']") ? [] : Array.from(document.querySelectorAll('[id^="quickstartRemove"]'))
+            console.log(removeButtons)
+            for(const button of removeButtons) {
+                button.addEventListener("click", removeQuickstart)
+            }
+        }, 1000)
     }
     document.getElementById("quickstart-list").innerHTML = general
     document.getElementById("newquick").addEventListener("click", newQuickstart)
