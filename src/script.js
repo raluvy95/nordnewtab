@@ -128,6 +128,11 @@ function time() {
 }
 function quickstartload() {
     const localStorage = window.localStorage
+    let enableQuickstart = localStorage.enableQuickstart
+    if(!enableQuickstart) {
+        enableQuickstart = "true"
+        localStorage.setItem("enableQuickstart", "true")
+    } else if(!JSON.parse(enableQuickstart)) return;
     if (!localStorage.quickstart) {
         const quickstartBasic = [
             {
