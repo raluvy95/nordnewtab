@@ -21,23 +21,56 @@ function HTTPWeather() {
         fetch(`https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${getLatLon.lat}&lon=${getLatLon.lon}&altitude=${getLatLon.at}`)
             .then(r => r.json())
             .then(res => {
-                function icon(weather) {
+                function icon(weather, time) {
                     let result = "wi wi-"
                     const otherIcons = {
-                        // unsupported icons
+                        // convert from API to weather icon compartible.
                         "lightsleet": "snow",
                         "lightrain": "rain",
-                        "fair": "sunny"
-                    }
-                    const otherIconsNight = {
-                        "fair": "clear"
+                        "fair": "cloudy",
+                        "heavyrain": "rain",
+                        "heavyrainandthunder": "thunderstorm",
+                        "heavyrainshowers": "rain",
+                        "heavysleet": "sleet",
+                        "heavysleetandthunder": "sleet-storm",
+                        "heavysleetshowersandthunder": "sleet-storm",
+                        "heavysnow": "snow",
+                        "heavysnowandthunder": "snow-thunderstorm",
+                        "heavysnowshowers": "snow",
+                        "heavysnowshowersandthunder": "snow-thunderstorm",
+                        "lightrain": "rain",
+                        "lightrainandthunder": "thunderstorm",
+                        "lightrainshowers": "rain",
+                        "lightrainshowersandthunder": "thunderstorm",
+                        "lightsleet": "sleet",
+                        "lightsleetandthunder": "sleet-storm",
+                        "lightsleetshowers": "sleet",
+                        "lightsnow": "snow",
+                        "lightsnowandthunder": "snow-thunderstorm",
+                        "lightssleetshowersandthunder": "sleet-thunderstorm",
+                        "lightssnowshowersandthunder": "snow-thunderstorm",
+                        "partlycloudy": "cloudy",
+                        "rainandthunder": "thunderstorm",
+                        "rainshowers": "rain",
+                        "rainshowersandthunder": "thunderstorm",
+                        "sleetandthunder": "sleet-storm",
+                        "sleetshowers": "sleet",
+                        "snowandthunder": "snow-thunderstorm",
+                        "snowshowers": "snow",
+                        "snowshowersandthunder": "snow-thunderstorm"
                     }
                     const splied = weather.split("_")
-                    result += splied[1] + "-"
+                    let whatitis = splied[1]
+                    if(!whatitis) {
+                        const time1 = new Date(time)
+                        const hour = time1.getHours()
+                        if(hour >= 8 && hour < 18) {
+                            whatitis = "day"
+                        } else whatitis = "night-alt"
+                    }
+                    result += whatitis + "-"
                     if (!otherIcons[splied[0]] ||  !otherIconsNight[splied[0]]) {
                         result += splied[0]
-                    } else if (splied[1] == "night") {
-                        result += otherIconsNight[splied[0]]
                     } else {
                         result += otherIcons[splied[0]]
                     }
@@ -49,7 +82,7 @@ function HTTPWeather() {
                 const time = res.properties.timeseries[0].time
                 const wicon = res.properties.timeseries[0].data["next_1_hours"].summary['symbol_code']
                 const celsus = details['air_temperature']
-                icon(wicon)
+                icon(wicon, time)
                 const w = document.getElementById("weather")
                 w.innerHTML = `${Math.round(celsus).toString()}&deg;C`
             })
