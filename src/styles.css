@@ -30,6 +30,7 @@ body {
   transition: 0.3s color;
   text-shadow: 0px 2px 5px black;
 }
+
 .title:hover {
   color: var(--color2);
 }
@@ -88,16 +89,23 @@ a:hover {
 }
 
 .widgets {
-  position:absolute;
-  display: inline;
+  position: absolute;
+  display: inline-flex;
   cursor: default;
   font-size: 20px;
-  display: inline;
   font-family: 'Segoe UI';
   color: var(--color3);
   margin: 25px;
+  align-items: center;
 }
 
-.widgets:hover {
-  color: var(--color1);
+.settings {
+  position: relative;
+  width: 32px;
+  transition: 1s;
+  cursor: pointer;
+}
+
+.settings:hover {
+  transform: rotate(180deg);
 }

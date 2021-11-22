@@ -7,6 +7,7 @@ function load() {
     quickstartList()
 }
 function newQuickstart() {
+    saveQuickstart()
     const nou = {
         "title": "New Title",
         "url": "https://example.com"
@@ -17,6 +18,7 @@ function newQuickstart() {
     quickstartList()
 }
 function removeQuickstart(e) {
+    saveQuickstart()
     const ID = e.target.id.slice(16)
     const json = JSON.parse(window.localStorage.quickstart)
     json.splice(ID, 1)
@@ -62,8 +64,7 @@ document.getElementById("enableQuickstart").addEventListener("change", () => {
         document.getElementById("quickstart-list").innerHTML = ''
     }
 })
-
-document.getElementById("saveConfig").addEventListener("click", () => {
+function saveQuickstart() {
     let count = 0;
     let result = []
     const stop = setInterval(() => {
@@ -79,6 +80,9 @@ document.getElementById("saveConfig").addEventListener("click", () => {
         }
         count++
     }, 20)
+}
+document.getElementById("saveConfig").addEventListener("click", () => {
+    saveQuickstart()
     document.getElementById("saveConfig").setAttribute("value", "Saved!")
     setTimeout(() => document.getElementById("saveConfig").setAttribute("value", "Save"), 2000)
 })

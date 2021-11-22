@@ -181,3 +181,6 @@ setInterval(randomQuote, 30000)
 setInterval(HTTPWeather, 30 * 60 * 1000) // refreshes 30 minutes
 
 document.getElementById("search").focus()
+document.getElementById("settings").addEventListener("click", () => {
+    window.open(chrome.runtime.getURL('src/options.html'));
+})

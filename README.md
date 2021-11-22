@@ -6,7 +6,7 @@ The search engine included is [DuckDuckGo](https://duckduckgo.com).
 
 > NOTE: The extension requires your location's latitude and longitude for making weather's data more accurate.
 
-![](screenshot.png)
+![](./assets/screenshot.png)
 
 # How to install
 Clone this repository, then go to [chrome's extension manager](chrome://extensions/) and drag&drop the folder where the source code is included into that page.
