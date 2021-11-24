@@ -23,6 +23,15 @@ function HTTPWeather() {
             .then(res => {
                 function icon(weather, time) {
                     let result = "wi wi-"
+                    const splied = weather.split("_")
+                    let whatitis = splied[1]
+                    if(!whatitis) {
+                        const time1 = new Date(time)
+                        const hour = time1.getHours()
+                        if(hour >= 8 && hour < 18) {
+                            whatitis = "day"
+                        } else whatitis = "night-alt"
+                    }
                     const otherIcons = {
                         // convert from API to weather icon compartible.
                         "lightsleet": "snow",
@@ -57,19 +66,11 @@ function HTTPWeather() {
                         "sleetshowers": "sleet",
                         "snowandthunder": "snow-thunderstorm",
                         "snowshowers": "snow",
-                        "snowshowersandthunder": "snow-thunderstorm"
-                    }
-                    const splied = weather.split("_")
-                    let whatitis = splied[1]
-                    if(!whatitis) {
-                        const time1 = new Date(time)
-                        const hour = time1.getHours()
-                        if(hour >= 8 && hour < 18) {
-                            whatitis = "day"
-                        } else whatitis = "night-alt"
+                        "snowshowersandthunder": "snow-thunderstorm",
+                        "clearsky": whatitis == "day" ? "sunny" : "clear"
                     }
                     result += whatitis + "-"
-                    if (!otherIcons[splied[0]] ||  !otherIconsNight[splied[0]]) {
+                    if (!otherIcons[splied[0]]) {
                         result += splied[0]
                     } else {
                         result += otherIcons[splied[0]]
