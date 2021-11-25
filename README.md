@@ -10,6 +10,8 @@ The search engine included is [DuckDuckGo](https://duckduckgo.com).
 
 # How to install
 Clone this repository, then go to [chrome's extension manager](chrome://extensions/) and drag&drop the folder where the source code is included into that page.
+# Bookmarks bar not showing up?
+Go to options page and press `Load from Bookmarks` button under `QuickStart`.
 # Firefox support
 I don't know if it's supports because I don't use Firefox.
 # License
