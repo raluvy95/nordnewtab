@@ -1,7 +1,7 @@
 {
   "name": "Nord NewTab",
   "description": "Override the default new page with Nord theme customized new tab",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "author": "Raluvy95",
   "manifest_version": 3,
   "chrome_url_overrides": {
