@@ -1,10 +1,58 @@
 function load() {
     const config = window.localStorage
     const enable = JSON.parse(config.enableQuickstart)
+    let shows = config.shows ? JSON.parse(config.shows) : {
+        clock: true, weather: true, option: true, quote: true
+    }
+    let layout = config.layout || "showSearch"
+    let title = config.title || "New Tab"
     if (enable) {
         document.getElementById("enableQuickstart").setAttribute("checked", '')
-    } else return;
-    quickstartList()
+        quickstartList()
+    }
+    if (shows.clock) {
+        document.getElementById("showClock").setAttribute('checked', '')
+    }
+    if (shows.weather) {
+        document.getElementById("showWeather").setAttribute('checked', '')
+    }
+    if (shows.option) {
+        document.getElementById("showOptions").setAttribute('checked', '')
+    }
+    if (shows.quote) {
+        document.getElementById("showQuote").setAttribute('checked', '')
+    }
+    document.getElementById("shows").addEventListener("change", e => {
+        const enabled = document.getElementById(e.target.id).hasAttribute('checked')
+        const idToName = {
+            "showClock": "clock",
+            "showWeather": "weather",
+            "showOptions": "option",
+            "showQuote": "quote"
+        }
+        if (enabled) {
+            document.getElementById(e.target.id).removeAttribute('checked')
+            shows[idToName[e.target.id]] = false
+            window.localStorage.setItem("shows", JSON.stringify(shows))
+        } else {
+            document.getElementById(e.target.id).setAttribute('checked', '')
+            shows[idToName[e.target.id]] = true
+            window.localStorage.setItem("shows", JSON.stringify(shows))
+        }
+    })
+    document.getElementById("customTitle").setAttribute('value', title)
+    document.getElementById("customTitle").addEventListener("change", e => {
+        title = e.target.value
+        window.localStorage.setItem("title", title)
+    })
+    document.getElementById("layouts").children[layout].setAttribute('checked', '')
+    document.getElementById("layouts").addEventListener("change", e => {
+        document.getElementById("layouts").children[layout].removeAttribute('checked')
+        document.getElementById(e.target.id).setAttribute('checked', '')
+        layout = e.target.id
+        window.localStorage.setItem("layout", layout)
+    })
+
 }
 
 function newQuickstart() {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Options</title>
     <link rel="icon" type="image/x-icon" href="favicon.png">
@@ -8,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <div class="main">
         <h1 style="font-size: 50px;">Options</h1>
@@ -16,7 +18,33 @@
         <input type="checkbox" id="enableQuickstart">
         <div id="quickstart-list"></div>
         <input type="button" value="Save" id="saveConfig">
+        <h2>Apperance</h2>
+        <form id="shows">
+            <label for="showClock">Show clock</label>
+            <input type="checkbox" id="showClock">
+            <label for="showWeather">Show weather</label>
+            <input type="checkbox" id="showWeather">
+            <label for="showQuote">Show quote</label>
+            <input type="checkbox" id="showQuote">
+            <label for="showOptions">Show options icon</label>
+            <input type="checkbox" id="showOptions">
+        </form><br>
+        <label for="customTitle">Custom Title</label>
+        <input type="text" id="customTitle" value="New Tab">
+        <h2>Layouts</h2>
+        <form id="layouts">
+            <label for="withSearch">With Search</label>
+            <input type="radio" id="withSearch" name="layout">
+            <p>Featuring DuckDuckGo search engine.</p>
+            <label for="focus">Focus</label>
+            <input type="radio" id="focus" name="layout">
+            <p>Only focus on quickstart, clock, quotes and weather</p>
+            <label for="minimal">Minimal</label>
+            <input type="radio" id="minimal" name="layout">
+            <p>Blank new page.</p>
+        </form>
     </div>
     <script src="options.js"></script>
 </body>
+
 </html>
