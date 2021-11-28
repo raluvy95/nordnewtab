@@ -19,6 +19,8 @@ function HTTPWeather() {
                             if (hour >= 8 && hour < 18) {
                                 whatitis = "day"
                             } else whatitis = "night-alt"
+                        } else if(whatitis == "night") {
+                            whatitis = "night-alt"
                         }
                         const otherIcons = {
                             // convert from API to weather icon compartible.
