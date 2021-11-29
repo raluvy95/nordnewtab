@@ -13,7 +13,8 @@
   "permissions": [
     "webRequest",
     "geolocation",
-    "bookmarks"
+    "bookmarks",
+    "topSites"
   ],
   "options_page": "./src/options.html",
   "action": {

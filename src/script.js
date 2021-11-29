@@ -19,7 +19,7 @@ function HTTPWeather() {
                             if (hour >= 8 && hour < 18) {
                                 whatitis = "day"
                             } else whatitis = "night-alt"
-                        } else if(whatitis == "night") {
+                        } else if (whatitis == "night") {
                             whatitis = "night-alt"
                         }
                         const otherIcons = {
@@ -137,6 +137,12 @@ function loadLayout() {
         document.getElementById("layout").innerHTML = r
     })
 }
+function shorterTitle(str) {
+    if (str.length > 28) {
+        return str.slice(0, 25) + "..."
+    }
+    else return str
+}
 
 function load() {
     const localStorage = window.localStorage
@@ -189,12 +195,6 @@ function load() {
         if (!quickstart) {
             console.error("there's something went wrong here")
         }
-        function shorterTitle(str) {
-            if(str.length > 28) {
-                return str.slice(0, 25) + "..."
-            }
-            else return str
-        }
         for (const obj of quickstart) {
             document.getElementById("quickstart").innerHTML += `
             <li>
@@ -217,6 +217,17 @@ function load() {
             element.remove()
         }
     }
+
+    chrome.topSites.get(sites => {
+        if(!document.getElementById("mostVisited")) return;
+        for (const site of sites) {
+            document.getElementById("mostVisited").innerHTML += `
+            <li>
+                <p><a href=${site.url}>${shorterTitle(site.title)}</a></p>
+            </li>
+            `
+        }
+    })
 
     time()
     HTTPWeather()
