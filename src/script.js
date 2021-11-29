@@ -94,22 +94,11 @@ function HTTPWeather() {
 
 function randomQuote() {
     if (checkEnable("random", "quote")) {
-        const storage = window.localStorage
-        function changeQuote() {
-            const json = storage.getItem("quotes")
-            const j = JSON.parse(json)
-            const pick = Math.floor(Math.random() * j.length)
-            const picked = j[pick]
+        fetch(chrome.runtime.getURL("/data/quotes.json")).then(j => j.json()).then(res => {
+            const pick = Math.floor(Math.random() * res.length)
+            const picked = res[pick]
             document.getElementById("random").innerHTML = picked.h
-        }
-        if (!storage.getItem("quotes")) {
-            fetch("https://zenquotes.io/api/quotes").then(r => r.json())
-                .then(res => {
-                    storage.setItem("quotes", JSON.stringify(res))
-                    changeQuote()
-                })
-                .catch(console.error)
-        } else changeQuote()
+        })
     }
 }
 
@@ -200,11 +189,16 @@ function load() {
         if (!quickstart) {
             console.error("there's something went wrong here")
         }
+        function shorterTitle(str) {
+            if(str.length > 28) {
+                return str.slice(0, 25) + "..."
+            }
+            else return str
+        }
         for (const obj of quickstart) {
             document.getElementById("quickstart").innerHTML += `
             <li>
-                <p><a href=${obj.url}>${obj.title}</a></p>
-                <img src="https://s2.googleusercontent.com/s2/favicons?domain=${obj.url}></img>
+                <p><a href=${obj.url}>${shorterTitle(obj.title)}</a></p>
             </li>
         `
         }
