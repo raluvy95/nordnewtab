@@ -198,7 +198,7 @@ function load() {
         for (const obj of quickstart) {
             document.getElementById("quickstart").innerHTML += `
             <li>
-                <p><a href=${obj.url}>${shorterTitle(obj.title)}</a></p>
+                <p title="${obj.title}"><a href=${obj.url}>${shorterTitle(obj.title)}</a></p>
             </li>
         `
         }
@@ -223,7 +223,7 @@ function load() {
         for (const site of sites) {
             document.getElementById("mostVisited").innerHTML += `
             <li>
-                <p><a href=${site.url}>${shorterTitle(site.title)}</a></p>
+                <p title="${site.title}"><a href=${site.url}>${shorterTitle(site.title)}</a></p>
             </li>
             `
         }
